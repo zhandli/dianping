@@ -1,0 +1,30 @@
+version: '3'
+services:
+  nginx:
+      image: nginx:latest
+      container_name: nginx
+      restart: always
+      ports:
+        - 80:80
+      volumes:
+        - /data/nginx:/etc/nginx
+  tomcat1:
+      image: tomcat:9.0.20-jre8-alpine
+      container_name: tomcat1
+      restart: always
+      ports:
+        - 8080:8080
+      volumes:
+        - /data/tomcat1/webapps:/usr/local/tomcat/webapps
+      depends_on:
+        - nginx
+  tomcat2:
+      image: tomcat:9.0.20-jre8-alpine
+      container_name: tomcat2
+      restart: always
+      ports:
+          - 8081:8080
+      volumes:
+          - /data/tomcat2/webapps:/usr/local/tomcat/webapps
+      depends_on:
+          - nginx
